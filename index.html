@@ -66,21 +66,22 @@
     .top-bar {
       display: flex; align-items: center; justify-content: space-between;
       width: 100%; max-width: 520px; margin-bottom: 16px;
+      gap: 8px; flex-wrap: wrap;
     }
-    .top-bar-left { display: flex; align-items: center; gap: 10px; }
-    h1 { font-size: 1.35rem; font-weight: 800; color: var(--text); letter-spacing: -0.01em; }
+    .top-bar-left { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    h1 { font-size: 1.2rem; font-weight: 800; color: var(--text); letter-spacing: -0.01em; }
 
     .streak-pill {
       display: flex; align-items: center; gap: 5px;
       background: var(--accent-bg); border: 1.5px solid var(--accent-bdr);
-      border-radius: 99px; padding: 4px 12px;
-      font-size: 0.8rem; font-weight: 800; color: var(--accent-hi);
+      border-radius: 99px; padding: 4px 10px;
+      font-size: 0.78rem; font-weight: 800; color: var(--accent-hi);
     }
 
-    .top-nav { display: flex; gap: 6px; align-items: center; }
+    .top-nav { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
     .top-link {
-      font-size: 0.78rem; color: var(--text-muted); text-decoration: none;
-      border: 1px solid var(--border); padding: 5px 10px; border-radius: 8px;
+      font-size: 0.73rem; color: var(--text-muted); text-decoration: none;
+      border: 1px solid var(--border); padding: 5px 9px; border-radius: 8px;
       white-space: nowrap; transition: color 0.15s, border-color 0.15s;
     }
     .top-link:hover { color: var(--text); border-color: var(--border-hi); }
@@ -133,12 +134,12 @@
       letter-spacing: 0.09em; align-self: flex-start; font-weight: 700;
     }
 
-    .dir-row, .diff-row, .mode-row { display: flex; gap: 8px; width: 100%; }
+    .dir-row, .diff-row, .mode-row { display: flex; gap: 7px; width: 100%; flex-wrap: wrap; }
     .pill-btn {
-      flex: 1; padding: 9px; border-radius: 10px; font-size: 0.85rem;
+      flex: 1; min-width: 0; padding: 9px 6px; border-radius: 10px; font-size: 0.82rem;
       font-weight: 600; border: 1.5px solid var(--border);
       background: var(--surface); color: var(--text-muted);
-      cursor: pointer; transition: all 0.15s;
+      cursor: pointer; transition: all 0.15s; white-space: nowrap;
     }
     .pill-btn.active {
       border-color: var(--accent); background: var(--accent-bg);
@@ -257,11 +258,12 @@
     .btn-start-wrap.disabled:hover .tooltip { display: block; }
     .btn-start {
       width: 100%; padding: 16px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-hi));
-      color: #0c0a08; border: none; border-radius: 12px;
+      background: linear-gradient(135deg, #16a34a, #22c55e);
+      color: #fff; border: none; border-radius: 12px;
       font-size: 1rem; font-weight: 700; cursor: pointer;
       transition: opacity 0.15s, transform 0.1s;
       letter-spacing: 0.02em;
+      box-shadow: 0 4px 16px rgba(34,197,94,0.25);
     }
     .btn-start:not(:disabled):hover { opacity: 0.9; transform: translateY(-1px); }
     .btn-start:not(:disabled):active { transform: scale(0.98); }
@@ -289,11 +291,13 @@
     .study-counter { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); }
 
     .quit-btn {
-      background: none; border: none; color: var(--text-dim);
-      font-size: 1.3rem; cursor: pointer; padding: 4px 6px;
-      transition: color 0.15s;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text-muted);
+      font-size: 0.78rem; font-weight: 600; cursor: pointer;
+      padding: 5px 10px; transition: color 0.15s, border-color 0.15s;
+      white-space: nowrap;
     }
-    .quit-btn:hover { color: var(--text-muted); }
+    .quit-btn:hover { color: var(--text); border-color: var(--border-hi); }
 
     .icon-btn {
       background: var(--surface); border: 1px solid var(--border);
@@ -410,11 +414,13 @@
     .speak-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
     .btn-speak {
       background: var(--surface); border: 1px solid var(--border);
-      border-radius: 99px; font-size: 1rem; padding: 6px 16px;
-      cursor: pointer; color: var(--text); transition: border-color 0.15s;
+      border-radius: 99px; padding: 8px 18px; display: flex; align-items: center; gap: 7px;
+      cursor: pointer; color: var(--text-muted); font-size: 0.8rem; font-weight: 600;
+      transition: border-color 0.15s, color 0.15s;
     }
-    .btn-speak:hover { border-color: var(--border-hi); }
+    .btn-speak:hover { border-color: var(--border-hi); color: var(--text); }
     .btn-speak:disabled { opacity: 0.35; cursor: not-allowed; }
+    .btn-speak svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
 
     /* Keyboard hints — hidden on touch devices */
     kbd {
@@ -698,7 +704,7 @@
 
   <div class="study-header">
     <div class="study-header-left">
-      <button class="quit-btn" onclick="showPicker()" title="Home" aria-label="Back to home">🌺</button>
+      <button class="quit-btn" onclick="showPicker()" aria-label="Back to home" data-i18n="btnHome">← Home</button>
       <button class="icon-btn" id="btn-suspend" onclick="suspendCard()" title="Suspend card" aria-label="Suspend card">💤</button>
     </div>
     <div class="study-header-center">
@@ -744,7 +750,12 @@
 
   <!-- Audio -->
   <div class="speak-row">
-    <button class="btn-speak" id="btn-speak" onclick="speak()" title="Listen" aria-label="Listen to pronunciation">🔊</button>
+    <button class="btn-speak" id="btn-speak" onclick="speak()" title="Listen" aria-label="Listen to pronunciation">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+      </svg>
+      Listen
+    </button>
   </div>
 
   <!-- Reveal row -->
@@ -882,6 +893,7 @@ const STRINGS = {
     cardsSuffix:         'cards',
     fullDeck:            'full deck',
     undoBtn:             '↩ Undo',
+    btnHome:             '← Home',
     modeEngThai:         'Eng → Thai',
     modeThaiEng:         'Thai → Eng',
     doneMsg:             (correct, total, pct) => `${correct} of ${total} correct (${pct}%).`,
@@ -954,6 +966,7 @@ const STRINGS = {
     cardsSuffix:         'บัตร',
     fullDeck:            'ทั้งหมด',
     undoBtn:             '↩ เลิกทำ',
+    btnHome:             '← หน้าแรก',
     modeEngThai:         'อังกฤษ → ไทย',
     modeThaiEng:         'ไทย → อังกฤษ',
     doneMsg:             (correct, total, pct) => `ถูก ${correct} จาก ${total} (${pct}%)`,
@@ -1435,9 +1448,11 @@ function renderCard(entry) {
     document.getElementById('card-front-sub').innerHTML = '';
     document.getElementById('thai-roman').textContent   = w.th || '';
     document.getElementById('thai-roman').style.color   = '';
+    document.getElementById('thai-roman').style.fontSize = '';
     document.getElementById('thai-script').innerHTML    = renderThaiScript(w.script);
-    document.getElementById('thai-script').style.color  = '';
+    document.getElementById('thai-script').style.color  = '';  // reset to CSS default (#92400e)
   } else {
+    // Thai→Eng: front shows Thai (question), back shows English + phonetic
     document.getElementById('card-front').textContent   = w.th || '';
     document.getElementById('card-front').className     = 'card-main thai';
     if (w.script) {
@@ -1446,10 +1461,12 @@ function renderCard(entry) {
       document.getElementById('card-front-sub').innerHTML =
         '<span class="no-script-note">no Thai script for this card</span>';
     }
+    // Back: English meaning (main answer), Thai phonetic below as pronunciation guide
     document.getElementById('thai-roman').textContent   = w.en;
     document.getElementById('thai-roman').style.color   = '#1e293b';
+    document.getElementById('thai-roman').style.fontSize = '';
     document.getElementById('thai-script').textContent  = w.th || '';
-    document.getElementById('thai-script').style.color  = '#94a3b8';
+    document.getElementById('thai-script').style.color  = '#d97706';  // amber — phonetic guide
   }
 
   const noteEl = document.getElementById('card-note-back');
